@@ -17,6 +17,7 @@ class HttpShell(object):
             "get": self.get,
             "post": self.post,
             "put": self.put,
+            "patch": self.patch,
             "delete": self.delete,
             "trace": self.trace,
             "options": self.options,
@@ -110,6 +111,13 @@ class HttpShell(object):
 
         if body:
             http.Http(self.args, self.logger, "PUT").run(
+                self.url, path, pipe, self.headers, self.cookies, body)
+
+    def patch(self, path, pipe=None):
+        body = self.input_body()
+
+        if body:
+            http.Http(self.args, self.logger, "PATCH").run(
                 self.url, path, pipe, self.headers, self.cookies, body)
 
     def delete(self, path, pipe=None):

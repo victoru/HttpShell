@@ -62,6 +62,7 @@ class AnsiLogger(object):
         print "  get", colorize("[</path/to/resource>] [| <external command>]", Color.GREY)
         print "  post", colorize("[</path/to/resource>] [| <external command>]", Color.GREY)
         print "  put", colorize("[</path/to/resource>] [| <external command>]", Color.GREY)
+        print "  patch", colorize("[</path/to/resource>] [| <external command>]", Color.GREY)
         print "  delete", colorize("</path/to/resource>", Color.GREY, Attribute.BRIGHT), colorize(" [| <external command>]", Color.GREY)
         print "  options", colorize("[</path/to/resource>] [| <external command>]", Color.GREY)
         print "  trace", colorize("[</path/to/resource>] [| <external command>]", Color.GREY)
