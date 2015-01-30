@@ -97,17 +97,16 @@ class Http(object):
         if not self.args.disable_cookies:
             self.store_response_cookies(response, cookies)
 
-        if self.args.auto_format:
-            mimetype = response["content-type"]
+        mimetype = (response["content-type"] or ";").split(";")[0]
 
-            if mimetype:
-                content = formatters.format_by_mimetype(
-                    content, mimetype.split(";")[0])
+        if self.args.auto_format and mimetype:
+            content = formatters.format_by_mimetype(
+                content, mimetype)
 
         if pipe:
             content = self.pipe_data(pipe, content)
 
-        self.logger.print_data(content)
+        self.logger.print_data(content, mimetype)
 
     def store_response_cookies(self, response, cookies):
         if "set-cookie" in response:

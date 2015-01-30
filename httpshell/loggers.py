@@ -3,7 +3,8 @@ from ansicolors import Color
 from ansicolors import Attribute
 from pygments import highlight
 from pygments.formatters import TerminalFormatter
-from pygments.lexers import guess_lexer
+from pygments.lexers import guess_lexer, get_lexer_for_mimetype
+from pygments.util import ClassNotFound
 
 
 # ANSI color terminal logger
@@ -46,12 +47,14 @@ class AnsiLogger(object):
             print colorize("Path:", Color.BLUE), morsel["path"]
             print
 
-    def print_data(self, data):
+    def print_data(self, data, mimetype):
         if data:
+            try:
+                lexer = get_lexer_for_mimetype(mimetype)
+            except ClassNotFound:
+                lexer = guess_lexer(data)
             print
-            print highlight(data,
-                            guess_lexer(data),
-                            TerminalFormatter())
+            print highlight(data, lexer, TerminalFormatter())
 
     def print_help(self):
         print "Verbs"
